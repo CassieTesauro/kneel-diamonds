@@ -1,6 +1,6 @@
 import { getSizes } from "./database.js"
 
-const sizes = getSizes()
+const sizes = getSizes() //sizes references the string array of sizes data returned by getSizes() on data
 
 document.addEventListener(
     "change",

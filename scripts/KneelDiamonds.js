@@ -2,6 +2,7 @@
 import { DiamondSizes } from "./DiamondSizes.js"
 import { JewelryStyles } from "./JewelryStyles.js"
 import { Orders } from "./Orders.js"
+import { Metals } from "./Metals.js"
 
 document.addEventListener(
     "click",
@@ -9,13 +10,14 @@ document.addEventListener(
     }
 )
 
-export const KneelDiamonds = () => {
+export const KneelDiamonds = () => { //6. definition for KneelDiamonds().  Since this function is within the renderAllHTML function, it contains html to be returned for the document.  
     return `
-        <h1>Kneel Diamonds</h1>
+        <h1>Kneel Diamonds</h1>  
 
         <article class="choices">
             <section class="choices__metals options">
                 <h2>Metals</h2>
+                ${Metals()} 
             </section>
             <section class="choices__sizes options">
                 <h2>Sizes</h2>
@@ -35,3 +37,4 @@ export const KneelDiamonds = () => {
     `
 }
 
+//7. The KneelDiamonds() function contains calls for other functions that retrieve state to be displayed in the html. the interpolated function definitions are in their corresponding js modules

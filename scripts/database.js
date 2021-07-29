@@ -25,7 +25,7 @@ const database = {
         { id: 4, metal: "Platinum", price: 795.45 },
         { id: 5, metal: "Palladium", price: 1241.0 }
     ],
-    customOrders: [
+    customOrders: [ //this is a transient state array.  stores data for each order, then is wiped clean for next order.
         {
             id: 1,
             metalId: 3,
@@ -36,7 +36,7 @@ const database = {
     ]
 }
 
-export const getMetals = () => {
+export const getMetals = () => {  //11. Function is defined to copy metal object array and convert it into a new string array.
     return database.metals.map(metal => ({...metal}))
 }
 
@@ -50,4 +50,4 @@ export const getStyles = () => {
 
 export const getOrders = () => {
     return database.styles.map(orders => ({...orders}))
-}
+} 
