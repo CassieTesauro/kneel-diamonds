@@ -28,7 +28,7 @@ const database = {
     customOrders: [ //this is a transient state array.  stores data for each order, then is wiped clean for next order.
         {
             id: 1,
-            metalId: 3,
+            metalId: 1,
             sizeId: 2,
             styleId: 3,
         }
@@ -63,4 +63,27 @@ export const setSize = (id) => {
 
 export const setStyle = (id) => {
     database.customOrders.styleId = id
+}
+
+//define new function to make changes to the customOrders obeject permanent state (AKA user clicked the purchase button so state transient --> permanent)
+export const addCustomOrder = () => {
+    
+    //step 1- copy the curent state of user choices in customOrders object
+    const newOrder = {...database.orderBuilder}
+
+    //step 2- add new primary key to customOrders object
+    const lastIndex = database.customOrders.length - 1
+    newOrder.id = database.customOrders[lastIndex].id + 1
+
+    //step 3- add timestamp to the order
+    newOrder.timestamp = Date.now()
+
+    //step 4- add the new customOrder object to customOders state
+    database.customOrders.push(newOrder)
+
+    //step 5- reset the temporary state for user choices
+    database.orderBuilder = {}
+
+    //step 6- make notification that perm state has changed
+    document.dispatchEvent(new CustomEvent("stateChanged"))
 }
