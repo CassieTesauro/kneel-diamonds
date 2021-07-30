@@ -3,6 +3,7 @@ import { DiamondSizes } from "./DiamondSizes.js"
 import { JewelryStyles } from "./JewelryStyles.js"
 import { Orders } from "./Orders.js"
 import { Metals } from "./Metals.js"
+import { addCustomOrder } from "./database.js"
 
 document.addEventListener(
     "click",
@@ -35,8 +36,15 @@ export const KneelDiamonds = () => { //6. definition for KneelDiamonds().  Since
 
         <article class="customOrders">
             <h2>Custom Jewelry Orders</h2>
+            ${Orders()}
         </article>
     `
 }
+document.addEventListener("click", clickEvent=> {
+    if (clickEvent.target.id === "orderButton") {
+        addCustomOrder()
+    }
+})
+
 
 //7. The KneelDiamonds() function contains calls for other functions that retrieve state to be displayed in the html. the interpolated function definitions are in their corresponding js modules

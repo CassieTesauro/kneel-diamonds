@@ -26,13 +26,15 @@ const database = {
         { id: 5, metal: "Palladium", price: 1241.0 }
     ],
     customOrders: [ //this is a transient state array.  stores data for each order, then is wiped clean for next order.
-        {
-            id: 1,
-            metalId: 1,
-            sizeId: 2,
-            styleId: 3,
-        }
-    ]
+        // {
+        //     id: 1,
+        //     metalId: 1,
+        //     sizeId: 2,
+        //     styleId: 3,
+        //     timestamp: 1627677543583
+        // }
+    ],
+    orderBuilder: {},
 }
 
 export const getMetals = () => {  //11. Function is defined to copy metal object array and convert it into a new string array.
@@ -44,11 +46,11 @@ export const getSizes = () => {
 }
 
 export const getStyles = () => {
-    return database.styles.map(styles => ({...styles}))
+    return database.styles.map(style => ({...style}))
 }
 
 export const getOrders = () => {
-    return database.styles.map(orders => ({...orders}))
+    return database.customOrders.map(order => ({...order}))
 } 
 
 //set functions take in an id of a user's choice as an argument and make that id a value in the customer order object in the database module.  customer picks color with id of 2 from color options imported from database --> that id value is stored back in database customer order object

@@ -6,5 +6,12 @@ const renderAllHTML = () => { //3. Finds function definition.  renderAllHTML() r
     mainContainer.innerHTML = KneelDiamonds() //5. mainContainer, which references the ability to impact #container in html module, uses the .innerHTML method to put the KneelDiamonds() function into the html #container element.  Need to find definition for function KneelDiamonds(). {hint- module kneeldiamonds.js}
 }
 
+
 renderAllHTML() //2. Calling function renderAllHTML().  Needs to find function definition.
 
+//adding the code below to listen for the custom event and generate html based on updated permanent state
+
+document.addEventListener("stateChanged", event => {
+    console.log("State of data has changed. Regenerating HTML...")
+    renderAllHTML()
+})
