@@ -51,3 +51,17 @@ export const getStyles = () => {
 export const getOrders = () => {
     return database.styles.map(orders => ({...orders}))
 } 
+
+//set functions take in an id of a user's choice as an argument and make that id a value in the customer order object in the database module.  customer picks color with id of 2 from color options imported from database --> that id value is stored back in database customer order object
+
+export const setMetal = (id) => {
+    database.customOrders.metalId = id
+}
+
+export const setSize = (id) => {
+    database.customOrders.sizeId = id
+}
+
+export const setStyle = (id) => {
+    database.customOrders.styleId = id
+}
