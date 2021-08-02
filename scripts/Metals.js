@@ -3,8 +3,6 @@ import { getMetals, setMetal } from "./database.js"
 const metals = getMetals() //metals state from database.js brought in by getMetals() and referenced in new variable 'metals'.
 
 
-
-
     //BIRDS EYE VIEW:  THIS EVENT LISTENER IS FOR WHEN  USER SELECTS AN OPTION FROM THE LIST////////////
 
 
