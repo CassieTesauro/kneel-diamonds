@@ -5,13 +5,19 @@ import { Orders } from "./Orders.js"
 import { Metals } from "./Metals.js"
 import { addCustomOrder } from "./database.js"
 
-document.addEventListener(
-    "click",
-    (event) => {
-    }
-)
 
-export const KneelDiamonds = () => { //6. definition for KneelDiamonds().  Since this function is within the renderAllHTML function, it contains html to be returned for the document.  
+document.addEventListener("click", clickEvent=> {
+    if (clickEvent.target.id === "orderButton") {
+        addCustomOrder()
+    }
+})
+
+
+
+export const KneelDiamonds = () => { 
+    //6. definition for KneelDiamonds().  Since this function is within the renderAllHTML function, it contains html to be returned for the document.  
+
+    //7. The KneelDiamonds() function contains calls for other functions that retrieve state to be displayed in the html. the interpolated function definitions are in their corresponding js modules
     return `
         <h1>Kneel Diamonds</h1>  
 
@@ -40,11 +46,5 @@ export const KneelDiamonds = () => { //6. definition for KneelDiamonds().  Since
         </article>
     `
 }
-document.addEventListener("click", clickEvent=> {
-    if (clickEvent.target.id === "orderButton") {
-        addCustomOrder()
-    }
-})
 
 
-//7. The KneelDiamonds() function contains calls for other functions that retrieve state to be displayed in the html. the interpolated function definitions are in their corresponding js modules

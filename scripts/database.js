@@ -1,11 +1,12 @@
-/*
+//database module stores transient and permanent state, defines getter/setter functions for sharing and grabbing state from mosule to module, defines function for 'change in state' when user clicks 'submit order' button and state goes transient ---> permanent
 
-    This module contains all of the data, or state, for the
-    application. It exports two functions that allow other
-    modules to get copies of the state.
 
-*/
 const database = {
+
+    orderBuilder: {}, //TRANSIENT STATE this is an empty object in the database array meant to store what the user clicks on, AKA they clicked the option but not the submit order button.  When the user does click the submit order button, the orderBuilder array gets wiped clean so it can track the next bowl as options are being chosen.
+
+    //below is the sort-or-permanent-state
+
     styles: [
         { id: 1, style: "Classic", price: 500 },
         { id: 2, style: "Modern", price: 710 },
@@ -25,19 +26,21 @@ const database = {
         { id: 4, metal: "Platinum", price: 795.45 },
         { id: 5, metal: "Palladium", price: 1241.0 }
     ],
-    customOrders: [ //this is a transient state array.  stores data for each order, then is wiped clean for next order.
-        // {
-        //     id: 1,
-        //     metalId: 1,
-        //     sizeId: 2,
-        //     styleId: 3,
-        //     timestamp: 1627677543583
-        // }
-    ],
-    orderBuilder: {},
+    customOrders: [ //This stores all the completed order history state.  When orderBuilder state becomes permanent, it gets stored here and orderBuilder is wiped clean for the next order.
+        {
+            id: 1,
+            metalId: 1, //ASK INSTR- Why dummy data?
+            sizeId: 2,
+            styleId: 3,
+            timestamp: 1627677543583
+        }
+    ]  
 }
 
-export const getMetals = () => {  //11. Function is defined to copy metal object array and convert it into a new string array.
+
+//'getter' functions make state from database available in other modules 
+
+export const getMetals = () => {  
     return database.metals.map(metal => ({...metal}))
 }
 
@@ -53,7 +56,9 @@ export const getOrders = () => {
     return database.customOrders.map(order => ({...order}))
 } 
 
-//set functions take in an id of a user's choice as an argument and make that id a value in the customer order object in the database module.  customer picks color with id of 2 from color options imported from database --> that id value is stored back in database customer order object
+
+
+//'setter' functions take in an id of a user's choice as an argument.  Then it stores that id as a value in customOrders in the database module.  AKA completed customer orders are set down/saved in customOrders by using the id's of the options the user picks.
 
 export const setMetal = (id) => {
     database.customOrders.metalId = id
@@ -67,25 +72,25 @@ export const setStyle = (id) => {
     database.customOrders.styleId = id
 }
 
-//define new function to make changes to the customOrders obeject permanent state (AKA user clicked the purchase button so state transient --> permanent)
+//defines new function.  When user clicks 'submit order' their transient data from orderBuilder is transfered into [permanent state] customOrders as an object.  Function also wipes orderBuilder clean so it's ready for the next order. (AKA user clicked the purchase button so state transient --> permanent)
 export const addCustomOrder = () => {
     
-    //step 1- copy the curent state of user choices in customOrders object
+    //step 1- copy the transient state info in orderBuilder. Instantiate variable newOrder to reference it. 
     const newOrder = {...database.orderBuilder}
 
-    //step 2- add new primary key to customOrders object
+    //step 2- Use the length-1, last index+1 trick to give the id value to the newOrder.
     const lastIndex = database.customOrders.length - 1
     newOrder.id = database.customOrders[lastIndex].id + 1
 
-    //step 3- add timestamp to the order
+    //step 3- add  the timestamp value to the newOrder
     newOrder.timestamp = Date.now()
 
-    //step 4- add the new customOrder object to customOders state
+    //step 4- push the created newOrder object into the customOrders object array
     database.customOrders.push(newOrder)
 
-    //step 5- reset the temporary state for user choices
+    //step 5- reset the  orderBuilder object that stores temporary state for user choices
     database.orderBuilder = {}
 
-    //step 6- make notification that perm state has changed
+    //step 6- triggers aka 'dispatches' the code we wrote for a custom even we named "stateChanged".  Event code is at the bottom of main.js
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
