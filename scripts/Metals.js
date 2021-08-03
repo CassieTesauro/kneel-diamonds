@@ -8,7 +8,7 @@ const metals = getMetals() //metals state from database.js brought in by getMeta
 
 document.addEventListener(  //User clicks radio button AKA change event occurs --> change is generated --> event listener runs function. 
     "change",
-    (event) => {     //event is the function parameter, so is the argument the action of the user selecting a radio button ???????????
+    (event) => {     
         if (event.target.name === "metal") {         // name refers to list item attribute name="metal"
             setMetal(parseInt(event.target.value))   // value refers to list item attribute value="${metal.id}"
         }

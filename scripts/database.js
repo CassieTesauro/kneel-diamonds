@@ -58,18 +58,18 @@ export const getOrders = () => {
 
 
 
-//'setter' functions take in an id of a user's choice as an argument.  Then it stores that id as a value in customOrders in the database module.  AKA completed customer orders are set down/saved in customOrders by using the id's of the options the user picks.
+//'setter' functions take in an id of a user's choice as an argument.  Then it stores that id as a transient value in orderBuilder in the database module. 
 
 export const setMetal = (id) => {
-    database.customOrders.metalId = id
+    database.orderBuilder.metalId = id
 }
 
 export const setSize = (id) => {
-    database.customOrders.sizeId = id
+    database.orderBuilder.sizeId = id
 }
 
 export const setStyle = (id) => {
-    database.customOrders.styleId = id
+    database.orderBuilder.styleId = id
 }
 
 //defines new function.  When user clicks 'submit order' their transient data from orderBuilder is transfered into [permanent state] customOrders as an object.  Function also wipes orderBuilder clean so it's ready for the next order. (AKA user clicked the purchase button so state transient --> permanent)
